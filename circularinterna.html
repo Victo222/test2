@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTARRIVO S.A. - Circular Interna N°8</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        :root {
+            --primary-bg: #0a0a1a;
+            --accent-color: #6366f1;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            padding-right: 40%; 
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .intro-text {
+            font-size: 6rem;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            white-space: nowrap;
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+        }
+
+        .logo-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 40%; 
+            height: 100%;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            z-index: 1; 
+            pointer-events: none;
+        }
+
+        .logo {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .title-content {
+            flex: 1;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(-50px);
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% 300%;
+            animation: gradientText 5s ease-in-out infinite;
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(-30px);
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(-20px);
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .highlight {
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        .nav-dots {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .nav-dot:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at center, var(--accent-color) 0%, transparent 70%);
+            opacity: 0.1;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .control-points-section {
+            background: linear-gradient(135deg, #0a1229 0%, #1a237e 100%);
+            padding: 3rem;
+            margin-top: 2rem;
+            border-radius: 15px;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .control-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .point-number {
+            background-color: #1a237e;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .point-content {
+            flex: 1;
+        }
+
+        .point-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .point-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow" id="glow"></div>
+    
+    <div id="intro" class="intro-text">INTARRIVO S.A</div>
+    <div class="logo-container">
+        <img id="logo" src="/img/IMG-20240202-WA0005.jpg" alt="INTARRIVO S.A. Logo" class="logo">
+    </div>
+    
+    <div class="content">
+        <div class="title-container">
+            <div class="title-content">
+                <h1 class="title">Circular Interna N°8</h1>
+                <h2 class="subtitle">INTARRIVO S.A.</h2>
+            </div>
+        </div>
+        <p class="description">
+            Estimados colaboradores, les informamos sobre las <span class="highlight">modificaciones a la circular n°7</span>. 
+            Esta actualización, vigente desde el <span class="highlight">06/09/2024</span>, introduce 
+            <span class="highlight">cambios significativos</span> en los puntos de control y las normativas de tolerancia.
+        </p>
+    </div>
+
+    <div class="nav-dots">
+        <div class="nav-dot active"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+    </div>
+
+    <script>
+        function redirectToHola() {
+            window.location.href = '/CircularComplete/1.html';
+        }
+
+        setTimeout(redirectToHola, 60000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const intro = document.getElementById('intro');
+            const logo = document.getElementById('logo');
+            const content = document.querySelector('.content');
+
+            anime({
+                targets: intro,
+                opacity: [0, 1],
+                textShadow: [
+                    { value: '0 0 10px rgba(255, 215, 0, 0)', duration: 0 },
+                    { value: '0 0 10px rgba(255, 215, 0, 1), 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6)', duration: 2000 }
+                ],
+                duration: 2000,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                    anime({
+                        targets: intro,
+                        opacity: 0,
+                        duration: 1000,
+                        easing: 'easeOutQuad',
+                        complete: () => {
+                            intro.style.display = 'none';
+                            logo.style.display = 'block';
+                            anime({
+                                targets: logo,
+                                opacity: [0, 1],
+                                scale: [0, 1],
+                                translateX: ['-50%', '0%'], 
+                                rotate: '2turn',
+                                duration: 3000,
+                                easing: 'easeInOutQuad',
+                                complete: () => {                         
+                                    content.style.opacity = 1;
+                                    animateContent();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            function animateContent() {
+                anime({
+                    targets: '.title',
+                    opacity: [0, 1],
+                    translateY: [-50, 0],
+                    duration: 1500,
+                    easing: 'easeOutExpo',
+                    delay: 300
+                });
+
+                anime({
+                    targets: '.subtitle',
+                    opacity: [0, 1],
+                    translateY: [-30, 0],
+                    duration: 1500,
+                    easing: 'easeOutExpo',
+                    delay: 600
+                });
+
+                anime({
+                    targets: '.description',
+                    opacity: [0, 1],
+                    translateY: [-20, 0],
+                    duration: 1500,
+                    easing: 'easeOutExpo',
+                    delay: 900
+                });
+
+                anime({
+                    targets: '.highlight',
+                    color: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FF6B6B'],
+                    duration: 4000,
+                    loop: true,
+                    easing: 'easeInOutQuad'
+                });
+
+                animateControlPoints();
+            }
+
+            function animateControlPoints() {
+                anime({
+                    targets: '.control-points-section',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 1000,
+                    easing: 'easeOutExpo',
+                    delay: 1200
+                });
+
+                anime({
+                    targets: '.control-point',
+                    opacity: [0, 1],
+                    translateX: [-20, 0],
+                    duration: 800,
+                    delay: anime.stagger(200, {start: 1500}),
+                    easing: 'easeOutQuad'
+                });
+
+                anime({
+                    targets: '.point-number',
+                    boxShadow: [
+                        { value: '0 0 15px rgba(255, 255, 255, 0.2)' },
+                        { value: '0 0 25px rgba(255, 255, 255, 0.5)' },
+                        { value: '0 0 15px rgba(255, 255, 255, 0.2)' }
+                    ],
+                    duration: 2000,
+                    loop: true,
+                    direction: 'alternate',
+                    easing: 'easeInOutQuad'
+                });
+            }
+
+            const glow = document.getElementById('glow');
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX - 100;
+                const y = e.clientY - 100;
+                glow.style.left = `${x}px`;
+                glow.style.top = `${y}px`;
+            });
+
+            const dots = document.querySelectorAll('.nav-dot');
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    dots.forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                });
+
+                dot.addEventListener('mouseenter', () => {
+                    anime({
+                        targets: dot,
+                        scale: 1.3,
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                });
+
+                dot.addEventListener('mouseleave', () => {
+                    if (!dot.classList.contains('active')) {
+                        anime({
+                            targets: dot,
+                            scale: 1,
+                            duration: 300,
+                            easing: 'easeOutQuad'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

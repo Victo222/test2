@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntos de Control en Regreso</title>
+    <style>
+        :root {
+            --deep-blue: #1a237e;
+            --neon-blue: #00f7ff;
+            --neon-purple: #ff00ff;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #020414;
+            color: var(--text-color);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 150px; /* Reduced from 200px */
+            background-image: url('/img/2.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 0.5rem; /* Reduced from 1rem */
+            position: relative;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75px; /* Reduced from 100px */
+            background: linear-gradient(to top, #020414, transparent);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem; /* Reduced from 2rem */
+        }
+
+        .title {
+            font-size: 2rem; /* Reduced from 2.5rem */
+            font-weight: bold;
+            margin-bottom: 1rem; /* Reduced from 2rem */
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            animation: titleEntrance 1.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px; /* Reduced from 60px */
+            margin-top: 0.5rem; /* Reduced from 1rem */
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 25px; /* Adjusted from 30px */
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+            animation: lineGrow 2s ease-out forwards;
+            transform-origin: top;
+        }
+
+        @keyframes lineGrow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        .control-point {
+            position: relative;
+            margin-bottom: 1rem; /* Reduced from 2rem */
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: controlPointEntrance 0.8s ease-out forwards;
+        }
+
+        .control-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .number {
+            position: absolute;
+            left: -50px; /* Adjusted from -60px */
+            width: 35px; /* Reduced from 40px */
+            height: 35px; /* Reduced from 40px */
+            background: var(--deep-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem; /* Reduced from 1.2rem */
+            color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+            animation: numberGlow 2s infinite alternate;
+        }
+
+        @keyframes numberGlow {
+            from { box-shadow: 0 0 10px var(--neon-blue); }
+            to { box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+        }
+
+        .point-title {
+            font-size: 1.5rem; /* Reduced from 1.8rem */
+            font-weight: bold;
+            margin-bottom: 0.3rem; /* Reduced from 0.5rem */
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .point-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.4; /* Reduced from 1.6 */
+            font-size: 1rem; /* Reduced from 1.1rem */
+            max-width: 600px;
+        }
+
+        @keyframes titleEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes controlPointEntrance {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .control-point:nth-child(1) { animation-delay: 0.5s; }
+        .control-point:nth-child(2) { animation-delay: 1s; }
+        .control-point:nth-child(3) { animation-delay: 1.5s; }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem; /* Reduced from 2.5rem */
+            }
+            
+            .hero-image {
+                height: 120px; /* Reduced from 200px */
+            }
+
+            .point-title {
+                font-size: 1.3rem; /* Reduced from 1.5rem */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-image"></div>
+    <div class="container">
+        <h1 class="title">Puntos de Control en Regreso</h1>
+        
+        <div class="timeline">
+            <div class="control-point">
+                <div class="number">1</div>
+                <h2 class="point-title">PASARELA y PEAJE</h2>
+                <p class="point-description">
+                    Sin tolerancia. La puntualidad es obligatoria en estos puntos críticos del recorrido.
+                </p>
+            </div>
+
+            <div class="control-point">
+                <div class="number">2</div>
+                <h2 class="point-title">COSECHE</h2>
+                <p class="point-description">
+                    Punto intermedio importante. Ajuste su tiempo para cumplir con el horario establecido.
+                </p>
+            </div>
+
+            <div class="control-point">
+                <div class="number">3</div>
+                <h2 class="point-title">FACTORY y COYAM</h2>
+                <p class="point-description">
+                    Puntos finales del regreso. Mantenga la precisión hasta el final del trayecto.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function redirectToHola() {
+            window.location.href = '/CircularComplete/3.html';
+        }
+
+
+        setTimeout(redirectToHola, 60000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.control-point').forEach((point) => {
+                observer.observe(point);
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanciones por Abandono de Trazado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        :root {
+            --deep-blue: #1a237e;
+            --neon-blue: #d80000;
+            --neon-purple: #ff00ff;
+            --card-bg: rgba(25, 33, 150, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #020414;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background-image: linear-gradient(45deg, #1a1a2e 0%, #0a0a1a 100%);
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 2rem;
+            animation: containerEntrance 1.5s ease-out forwards, floatContainer 6s ease-in-out infinite;
+        }
+
+        .image-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+            animation: imageEntrance 1.5s ease-out forwards;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            animation: pulseImage 4s ease-in-out infinite;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: left;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            animation: titleEntrance 1.5s ease-out forwards, glowTitle 2s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.1);
+            border: 1px solid rgba(0, 247, 255, 0.1);
+            animation: cardEntrance 0.8s ease-out forwards, floatCard 4s ease-in-out infinite;
+            opacity: 0;
+            transform: translateX(20px);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+            animation: glowText 2s ease-in-out infinite;
+        }
+
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(244, 225, 7, 0.961);
+        }
+
+        .digital-clock {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            z-index: 10;
+            animation: clockEntrance 1.5s ease-out forwards, floatClock 3s ease-in-out infinite;
+        }
+
+        @keyframes containerEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        @keyframes imageEntrance {
+            from {
+                opacity: 0;
+                transform: translateX(-50px) rotateY(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotateY(0);
+            }
+        }
+
+        @keyframes titleEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardEntrance {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes clockEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatContainer {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-10px) rotateX(2deg); }
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes floatClock {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes glowTitle {
+            0%, 100% { text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); }
+            50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 40px var(--neon-blue); }
+        }
+
+        @keyframes glowText {
+            0%, 100% { text-shadow: 0 0 5px rgba(0, 247, 255, 0.5); }
+            50% { text-shadow: 0 0 10px rgba(0, 247, 255, 0.8), 0 0 15px rgba(0, 247, 255, 0.5); }
+        }
+
+        @keyframes pulseImage {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.3s; }
+        .card:nth-child(2) { animation-delay: 0.5s; }
+        .card:nth-child(3) { animation-delay: 0.7s; }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-container {
+                height: 300px;
+            }
+
+            .title {
+                font-size: 2rem;
+                text-align: center;
+            }
+            
+            .digital-clock {
+                position: static;
+                margin: 1rem auto;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="/img/4.jpg" alt="Bus at night with neon lights">
+        </div>
+        <div class="content">
+            <h1 class="title">Sanciones por Abandono de Trazado</h1>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <h2 class="card-title">Primera Infracción</h2>
+                    <p class="card-content">
+                        Sanción de 5 minutos en dinero, pagaderos al bus afectado.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title"> Reincidencia</h2>
+                    <p class="card-content">
+                        Además de la sanción monetaria, se castiga con la pérdida de una vuelta.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Consecuencias</h2>
+                    <p class="card-content">
+                        Afecta la eficiencia del servicio y puede resultar en medidas disciplinarias adicionales.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+          function redirectToHola() {
+            window.location.href = '/CircularComplete/5.html';
+        }
+
+        setTimeout(redirectToHola, 60000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.container');
+            const cards = document.querySelectorAll('.card');
+            const imageContainer = document.querySelector('.image-container');
+            
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 100;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
+                container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const maxRotate = 10;
+
+                    const rotateX = ((y - centerY) / centerY) * maxRotate;
+                    const rotateY = ((centerX - x) / centerX) * maxRotate;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                });
+            });
+
+            function animateImage() {
+                const time = Date.now() * 0.001;
+                const scaleValue = 1 + Math.sin(time) * 0.02;
+                imageContainer.style.transform = `scale(${scaleValue})`;
+                requestAnimationFrame(animateImage);
+            }
+            animateImage();
+        });
+    </script>
+</body>
+</html>
+
